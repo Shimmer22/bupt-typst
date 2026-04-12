@@ -1,81 +1,163 @@
+#import "@preview/itemize:0.2.0" as el
+#import "@preview/cuti:0.4.0": fakebold, show-cn-fakebold
+
 #let chineseNumMap(num) = {
   let chineseNum = (
-    "一", "二", "三", "四", "五", "六", "七", "八", "九", "十",
-    "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
-    "二十一", "二十二", "二十三", "二十四", "二十五", "二十六", "二十七", "二十八", "二十九", "三十",
-    "三十一", "三十二", "三十三", "三十四", "三十五", "三十六", "三十七", "三十八", "三十九", "四十",
+    "一",
+    "二",
+    "三",
+    "四",
+    "五",
+    "六",
+    "七",
+    "八",
+    "九",
+    "十",
+    "十一",
+    "十二",
+    "十三",
+    "十四",
+    "十五",
+    "十六",
+    "十七",
+    "十八",
+    "十九",
+    "二十",
+    "二十一",
+    "二十二",
+    "二十三",
+    "二十四",
+    "二十五",
+    "二十六",
+    "二十七",
+    "二十八",
+    "二十九",
+    "三十",
+    "三十一",
+    "三十二",
+    "三十三",
+    "三十四",
+    "三十五",
+    "三十六",
+    "三十七",
+    "三十八",
+    "三十九",
+    "四十",
   )
   chineseNum.at(num - 1)
 }
 
 #let romanNumMap(num) = {
   let romanNum = (
-    "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
-    "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX",
-    "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX",
-    "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL",
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "VI",
+    "VII",
+    "VIII",
+    "IX",
+    "X",
+    "XI",
+    "XII",
+    "XIII",
+    "XIV",
+    "XV",
+    "XVI",
+    "XVII",
+    "XVIII",
+    "XIX",
+    "XX",
+    "XXI",
+    "XXII",
+    "XXIII",
+    "XXIV",
+    "XXV",
+    "XXVI",
+    "XXVII",
+    "XXVIII",
+    "XXIX",
+    "XXX",
+    "XXXI",
+    "XXXII",
+    "XXXIII",
+    "XXXIV",
+    "XXXV",
+    "XXXVI",
+    "XXXVII",
+    "XXXVIII",
+    "XXXIX",
+    "XL",
   )
   romanNum.at(num - 1)
 }
 
 #let FONTSIZE = (
-  SanHao:   16pt,
-  XiaoSan:  15pt,
-  SiHao:    14pt,
-  XiaoSi:   12pt,
-  WuHao:    10.5pt,
-  XiaoWu:   9pt,
+  SanHao: 16pt,
+  XiaoSan: 15pt,
+  SiHao: 14pt,
+  XiaoSi: 12pt,
+  WuHao: 10.5pt,
+  XiaoWu: 9pt,
 )
 
-#let FONTSET = (
-  Hei:     ("Inter", "Noto Sans CJK SC"),
-  Song:    "Noto Serif CJK SC",
-  Kai:     "FZKai-Z03",
-  English: "STIX Two Text",
+// #let FONTSET = (
+//   Hei: "SimHei", // ("Inter", "Noto Sans CJK SC"),
+//   Song: "SimSun", // "Noto Serif CJK SC",
+//   Kai: "KaiTi", // "FZKai-Z03",
+//   English: "Times New Roman", // "STIX Two Text",
+// )
+
+#let FontEnglish = (name: "Times New Roman", covers: "latin-in-cjk")
+
+#let FontHeiCN = "SimHei"
+#let FontHei = (
+  FontEnglish,
+  "SimHei",
+)
+#let FontSong = (
+  FontEnglish,
+  "SimSun",
+)
+#let FontKai = (
+  FontEnglish,
+  "KaiTi",
 )
 
-#let tableCounter    = counter("Table")
-#let figureCounter   = counter("Figure")
+#let tableCounter = counter("Table")
+#let figureCounter = counter("Figure")
 #let equationCounter = counter("Equation")
 
 #let BUPTBachelorThesis(
   titleZH: "",
   abstractZH: "",
   keywordsZH: (),
-
   titleEN: "",
   abstractEN: "",
   keywordsEN: (),
-
-  body
+  body,
 ) = {
   // 页面配置
   set page(paper: "a4", margin: 2.5cm)
-  set text(font: (FONTSET.at("English"), FONTSET.at("Song")), weight: "regular", size: FONTSIZE.XiaoSi)
+  set text(font: FontSong, weight: "regular", size: FONTSIZE.XiaoSi)
+
+  show: el.default-enum-list // 有序列表与内容基线对齐
+  show: show-cn-fakebold // 中文伪粗体
 
   // 数学公式
-  show math.equation: it => if it.block {
-    locate(loc => {
-    set par(leading: 1.5em)
-    let chapterLevel = counter(heading).at(loc).at(0)
-
-    grid(
-      columns: (100pt, 1fr, 100pt),
-      [],
-      align(center, it),
-        align(horizon + right)[
-        #text(
-          font: (FONTSET.at("English"), FONTSET.at("Song")),
-          [式（#chapterLevel\-#equationCounter.display()）]
-        )
-      ]
-    )
-
-    equationCounter.step()
-  })
-  } else {
-    it
-  }
+  set math.equation(
+    numbering: it => context [
+      // 改用numbering实现，可在正文 @label
+      #let chapterLevel = counter(heading).at(here()).at(0)
+      #set text(font: FontSong)
+      #h(0em, weak: true)
+      式（#chapterLevel\-#equationCounter.display()）
+      #h(0em, weak: true)
+      #equationCounter.step()
+    ],
+    supplement: [], // 取消自带的 supplement "Equation"
+  )
 
   // 代码
   show raw.where(block: true): it => {
@@ -85,112 +167,137 @@
 
   // 中文摘要
   align(center)[
-      #set text(font: FONTSET.at("Hei"), weight: "bold")
-      #text(size: FONTSIZE.SanHao, titleZH) \ \
-      #text(size: FONTSIZE.XiaoSan, tracking: 1em, "摘要") \ \
+    #set text(font: FontHeiCN, weight: "bold")
+    #v(0.6cm)
+    #text(size: FONTSIZE.SanHao, titleZH) \ \ \ \
+    #text(size: FONTSIZE.XiaoSan, "摘要") \ \
   ]
 
-  set par(first-line-indent: 2em, leading: 1.2em)  // 段内行间距为1.2倍
-  show par: set block(spacing: 1.2em)              // 段间距同样为1.2倍
+  set par(
+    first-line-indent: (all: true, amount: 2em), // 首行缩进
+    leading: 0.75em, // 段内行间距为1.25倍，不等于 1.25em
+    spacing: 0.75em, // 段间距同样为1.25倍，不等于 1.25em
+    justify: true, // 两端对齐
+  )
   abstractZH
 
   [\ \ ]
-  text(font: FONTSET.at("Hei"), weight: "bold", size: FONTSIZE.XiaoSi, h(2em) + "关键词")
-  text(size: FONTSIZE.XiaoSi,
-    for value in keywordsZH {
-      h(1em) + value
-    }
+  text(
+    font: FontHeiCN,
+    weight: "bold",
+    size: FONTSIZE.XiaoSi,
+    h(2em) + "关键词" + h(0.5em),
   )
+  text(size: FONTSIZE.XiaoSi, keywordsZH.join(h(1em)))
   pagebreak()
 
   // 英文摘要
   align(center)[
-      #text(weight: "bold", size: FONTSIZE.SanHao, titleEN) \ \
-      #text(weight: "bold", size: FONTSIZE.XiaoSan, "ABSTRACT") \ \
+    #v(0.2cm)
+    #text(weight: "bold", size: FONTSIZE.SanHao, titleEN)
+    #v(1.5cm)
+    #text(weight: "bold", size: FONTSIZE.XiaoSan, "ABSTRACT")
+    #v(0.8cm)
   ]
-  abstractEN
 
-  [\ \ ]
+  [
+    #set par(
+      leading: 1.05em,
+      spacing: 1.05em,
+    )
+    #abstractEN
+  ]
+
+
+  [\ ]
   text(weight: "bold", size: FONTSIZE.XiaoSi, h(2em) + "KEY WORDS")
-  text(size: FONTSIZE.XiaoSi,
-    for value in keywordsEN {
-      h(1em) + value
-    }
-  )
+  text(size: FONTSIZE.XiaoSi, for value in keywordsEN {
+    h(1em) + value
+  })
   pagebreak()
 
   // 目录
   set page(
-    footer: locate(loc => {
+    footer: context {
       [
         #align(center)[
-          #text(font: FONTSET.at("English"), size: FONTSIZE.XiaoWu)[
-            #romanNumMap(counter(page).at(loc).at(0))
+          #text(font: FontEnglish, size: FONTSIZE.XiaoWu)[
+            #romanNumMap(counter(page).at(here()).at(0))
           ]
         ]
       ]
-    })
+    },
   )
   counter(page).update(1)
 
-  show outline: it => locate(loc => {
-    set par(first-line-indent: 0em)
+  show outline: it => context {
+    set par(first-line-indent: 0em, leading: 0.9em)
 
     align(center)[
-      #text(font: FONTSET.at("Hei"), weight: "bold", tracking: 2em, size: FONTSIZE.SanHao, [目录\ \ ])
+      #text(font: FontHeiCN, weight: "bold", /*tracking: 2em, */ size: FONTSIZE.SanHao, [目录\ \ ]) // 2026模板移除了标题的2em空格
     ]
 
-    let chapterCounter    = 1
-    let sectionCounter    = 1
+    let chapterCounter = 1
+    let sectionCounter = 1
     let subsectionCounter = 1
 
-    let headingList = query(selector(heading).after(loc), loc)
+    let headingList = query(heading)
     for i in headingList {
-      if i.outlined == false {
-        break
-      }
-
-      if i.level == 1 {
-        set text(font: (FONTSET.at("Hei")), size: FONTSIZE.XiaoSi, weight: "bold")
-
-        if i.body != [参考文献] and i.body != [致#h(2em)谢] and i.body != [附#h(2em)录] {
-          [第#chineseNumMap(chapterCounter)章#h(1em)]
+      link(i.location(), {
+        if i.outlined == false {
+          break
         }
 
-        if i.body == [致#h(2em)谢] {
-          [致#h(2em)谢 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-        } else if i.body == [附#h(2em)录] {
-          [附#h(2em)录 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-        } else {
-          [#i.body #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
+        if i.level == 1 {
+          set text(font: FontHei, size: FONTSIZE.XiaoSi /*, weight: "bold"*/) // 取消页码和点分隔符的加粗
+
+          if i.body != [参考文献] and i.body != [致谢] and i.body != [附录] {
+            // 2026模板移除了标题的2em空格
+            [第#chineseNumMap(chapterCounter)章#h(1em)]
+          }
+
+          if i.body == [致谢] {
+            [致谢 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
+          } else if i.body == [附录] {
+            [附录 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
+          } else {
+            [#i.body #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
+          }
+
+          chapterCounter = chapterCounter + 1
+          sectionCounter = 1
+        } else if i.level == 2 {
+          // 手动增大缩进对齐模板
+          [#h(1.5em)#calc.abs(chapterCounter - 1)\.#sectionCounter#h(1em)#i.body #box(width: 1fr, repeat[.]) #(
+              counter(page).at(i.location()).at(0)
+            )\ ]
+
+          sectionCounter += 1
+          subsectionCounter = 1
+        } else if i.level == 3 {
+          // 手动增大缩进对齐模板
+          [#h(2.4em)#calc.abs(chapterCounter - 1)\.#calc.abs(sectionCounter - 1)\.#subsectionCounter#h(1em)#i.body #box(
+              width: 1fr,
+              repeat[.],
+            ) #counter(page).at(i.location()).at(0)\ ]
+
+          subsectionCounter += 1
         }
-
-        chapterCounter = chapterCounter + 1
-        sectionCounter = 1
-      } else if i.level == 2 {
-        [#h(1em)#calc.abs(chapterCounter - 1)\.#sectionCounter#h(1em)#i.body #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-
-        sectionCounter += 1
-        subsectionCounter = 1
-      } else if i.level == 3 {
-        [#h(2em)#calc.abs(chapterCounter - 1)\.#calc.abs(sectionCounter - 1)\.#subsectionCounter#h(1em)#i.body #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-
-        subsectionCounter += 1
-      }
+      })
     }
-  })
+  }
 
-  outline(title: none, depth: 3, indent: true)  
+  outline(title: none, depth: 3, indent: auto)
 
-  // 章节标题配置  
+  // 章节标题配置
   set heading(numbering: "1.1")
-  show heading: it => {
-    locate(loc => {
-      let levels = counter(heading).at(loc)
+  show heading: it => context {
+    context {
+      let levels = counter(heading).at(here())
 
       // 重置段首空格
       set par(first-line-indent: 0em)
-      set text(font: FONTSET.at("Hei"), weight: "bold")
+      set text(font: FontHeiCN, weight: "bold")
 
       if it.level == 1 {
         // 重置计数器
@@ -200,74 +307,167 @@
 
         align(center)[
           #grid(
-            rows: (1em),
-            row-gutter: 0.2em,
-            columns: (1fr),
+            rows: 1em,
+            row-gutter: 0em,
+            columns: 1fr,
             [],
-            text(size: FONTSIZE.SanHao, [第#chineseNumMap(levels.at(0))章#h(1em)#it.body]),
+            text(size: FONTSIZE.SanHao, [第#chineseNumMap(levels.at(0))章#h(0.5em)#it.body]),
             []
           )
         ]
       } else if it.level == 2 {
         grid(
-          rows: (0.5em, 1em, 0.5em),
-          columns: (1fr),
+          rows: (0em, 1em, 0.5em), // (0.5em, 1em, 0.5em),
+          columns: 1fr,
           [],
-          [#numbering("1.1", ..levels)
-        #text(size: FONTSIZE.SiHao, h(1em) + it.body)],
-        []
+          fakebold[ // 黑体序号使用伪粗体
+            #numbering("1.1", ..levels)
+            #text(size: FONTSIZE.SiHao, it.body)
+          ],
+          []
         )
-        
       } else {
         grid(
           rows: (0.5em, 1em, 0.5em),
-          columns: (1fr),
+          columns: 1fr,
           [],
-          [#h(2em) #numbering("1.1", ..levels)
-        #text(size: FONTSIZE.XiaoSi, h(1em) + it.body)],
-        []
+          fakebold[ // 黑体序号使用伪粗体
+            #h(2em) #numbering("1.1", ..levels)
+            #text(size: FONTSIZE.XiaoSi, it.body)
+          ],
+          []
         )
       }
-    })
-    text()[#v(-0.6em, weak: true)];text()[#h(0em)]
+    }
+    text()[#v(-0.6em, weak: true)]
+    text()[#h(0em)]
   }
 
   // 引用
   show cite: it => {
-    text(font: FONTSET.at("English"), it)
+    text(font: FontEnglish, it)
+    h(0em, weak: true) // 移除@cite的多余空格
   }
 
   // 页眉页脚
   set page(
     header: [
+      #counter(footnote).update(0) // 重设脚注计数器，否则不同页脚注会累积
       #align(center)[
-        #pad(bottom: -8pt)[
-          #pad(bottom: -8pt,
-            text(font: FONTSET.at("Song"), size: FONTSIZE.XiaoWu, "北京邮电大学本科毕业设计（论文）")
-          )
+        #pad(bottom: -6pt)[
+          #pad(bottom: -6pt, text(font: FontSong, size: FONTSIZE.XiaoWu, "北京邮电大学本科毕业设计（论文）"))
           #line(length: 100%, stroke: 0.5pt)
         ]
       ]
     ],
-    footer: [
+    footer: context [
       #align(center)[
-        #text(font: FONTSET.at("English"), size: FONTSIZE.XiaoWu)[
+        #text(font: FontEnglish, size: FONTSIZE.XiaoWu)[
           #counter(page).display()
         ]
       ]
-    ]
+    ],
   )
   counter(page).update(1)
+
+  // 脚注
+  set footnote(numbering: "①")
+  set footnote.entry(separator: none)
+  show footnote: set super(baseline: -0.5em)
+  show footnote.entry: it => {
+    set super(size: 0.65em, baseline: -0.4em)
+    show super: it => {
+      it + h(3pt) // entry中序号和文本的空格
+    }
+    it
+  }
+
+  // 图表标题
+  show figure.caption: set text(font: FontKai, size: FONTSIZE.WuHao)
+
+  // 图
+  show figure.where(kind: image): set figure(
+    supplement: [图],
+    numbering: it => {
+      let chapterLevel = counter(heading).get().first()
+      str(chapterLevel) + "-" + figureCounter.display() // 图序
+    },
+  )
+  show figure.where(kind: image): set figure.caption(
+    separator: h(1em), // 图序与图题之间空2个空格
+  )
+  show figure.where(kind: image): it => {
+    figureCounter.step() // 计数器递增
+    it
+  }
+
+  // 表
+  show figure.where(kind: table): set figure(
+    supplement: [表],
+    numbering: it => {
+      let chapterLevel = counter(heading).get().first()
+      str(chapterLevel) + "-" + tableCounter.display() // 表序
+    },
+  )
+  show figure.where(kind: table): set figure.caption(
+    separator: h(1em), // 表序与图题之间空2个空格
+    position: top,
+  )
+  show figure.where(kind: table): it => {
+    tableCounter.step() // 计数器递增
+    it
+  }
+  set table(
+    stroke: (x, y) => if y == 0 {
+      (top: 0.5pt, bottom: 0.5pt) // 首行顶/底分割线
+    },
+    inset: 8pt,
+  )
+  set table.hline(stroke: 0.5pt)
+
+  // 表格后处理：可选表注
+  show figure.where(kind: table): it => context {
+    let next-figs = query(selector(figure.where(kind: table)).after(here()))
+    let next-fig-loc = if next-figs.len() > 0 {
+      next-figs.first().location()
+    } else {
+      none
+    }
+    let sel = if next-fig-loc == none {
+      selector(metadata).after(here())
+    } else {
+      selector(metadata).after(here()).before(next-fig-loc)
+    }
+    let metas = query(sel)
+    let notes = metas.filter(s => s.value.role == "tablenote").map(s => s.value.body)
+    let note = if notes.len() > 0 { notes.first() } else { none }
+
+    if note != none {
+      block[
+        #it
+        #v(3pt, weak: true) // 表注和表的距离
+        #let width = measure(it).width
+        // 固定宽度盒子，避免撑大
+        #box(width: width)[
+          #align(left)[
+            #text(size: 0.9em)[注：#note]
+          ]
+        ]
+      ]
+    } else {
+      it
+    }
+  }
 
   // 正文
   body
 }
 
 #let primary_heading(
-  title
+  title,
 ) = {
   grid(
-    columns: (1fr),
+    columns: 1fr,
     row-gutter: 0.2em,
     rows: (1em, 1em, 1em),
     [], [#title], []
@@ -277,96 +477,43 @@
 // 附录部分
 #let Appendix(
   bibliographyFile: none,
-  
-  body
+  body,
 ) = {
-  show heading: it => locate(loc => {
+  show heading: it => context {
     set par(first-line-indent: 0em)
-    
-    let levels = counter(heading).at(loc)
+
+    let levels = counter(heading).at(here())
 
     if it.level == 1 {
       align(center)[
-        #text(font: FONTSET.at("Hei"), size: FONTSIZE.SanHao, it.body)
+        #text(font: FontHeiCN, size: FONTSIZE.SanHao, it.body)
       ]
     } else if it.level == 2 {
       text(size: FONTSIZE.SiHao, it.body)
     }
-  })
+  }
 
   // 参考文献
   if bibliographyFile != none {
     pagebreak()
     primary_heading([= 参考文献])
-    
+
     set text(
-      font: (FONTSET.at("English"), 
-      FONTSET.at("Song")), 
-      size: FONTSIZE.WuHao, 
-      lang: "zh"
+      font: FontSong,
+      size: FONTSIZE.WuHao,
+      lang: "zh",
     )
     set par(first-line-indent: 0em)
     bibliography(
-      bibliographyFile, 
+      bibliographyFile,
       title: none,
-      style: "gb-7714-2015-numeric"
+      style: "gb-7714-2015-numeric",
     )
-    show bibliography: it => {
-
-    }
+    show bibliography: it => {}
   }
 
   body
 }
 
-// 图
-#let Figure(
-  file,
-  caption,
-  width,
-) = {
-  show figure: it => locate(loc => {
-    let chapterLevel = counter(heading).at(loc).at(0)
-
-    align(center)[
-      #it.body
-      #text(
-        font: (FONTSET.at("English"), FONTSET.at("Kai")),
-        size: FONTSIZE.WuHao,
-        [图 #chapterLevel\-#figureCounter.display() #caption]
-      )
-    ]
-
-    figureCounter.step()
-  })
-
-  figure(
-      image(file, width: width)
-  )
-}
-
-// 表
-#let Table(caption, columnsSet, alignSet, body) = {
-  show table: it => locate(loc => {
-    let chapterLevel = counter(heading).at(loc).at(0)
-
-    align(center)[
-      #text(
-        font: (FONTSET.at("English"), FONTSET.at("Kai")),
-        size: FONTSIZE.WuHao,
-        [表 #chapterLevel\-#tableCounter.display() #caption]
-      )
-      #it
-    ]
-
-    tableCounter.step()
-  })
-
-  table(
-    columns: columnsSet,
-    align: alignSet,
-    inset: 8pt,
-    stroke: 0.5pt,
-    ..body
-  )
-}
+// 表注
+#let tablenote(body) = metadata((role: "tablenote", body: body))

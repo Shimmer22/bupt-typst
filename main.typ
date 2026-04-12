@@ -1,128 +1,227 @@
 #import "template.typ": *
 
 #show: BUPTBachelorThesis.with(
-  titleZH: "这是一个本科毕业设计的中文标题",
+  titleZH: "论文题目",
   abstractZH: [
-    中文摘要。
-    
-    那只敏捷的棕毛 fox 跳过那只懒狗，消失得无影无踪。
-    
-    那只敏捷的棕毛狐狸 jumps over 那只懒狗，消失得无影无踪。
+    文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本。本文的主要工作如下：
 
-    思源宋体也和它的兄弟字体思源黑体一样针对屏幕显示进行了优化，但前者具有截然不同的风格，适合用于文学性较强的文本或优雅、时尚的标题。它的打印效果也非常优美。
+    1\. 文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本。
+
+    2\. 文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本。
+
+    3\. 文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本。
   ],
-  keywordsZH: ("北京邮电大学", "本科生", "毕业设计", "模板", "示例"),
+  keywordsZH: ("关键词1", "关键词2", "关键词3"),
 
-  titleEN: "This is English Title",
+  titleEN: "The Title",
   abstractEN: [
-    English Abstract.
-    
-    The quick brown fox jumps over the lazy dog and runs away. The quick brown fox jumps over the lazy dog and runs away. The quick brown fox jumps over the lazy dog and runs away. 
+    Text text text text text text text text text text text text text text text, text text text text text text text, text text text text text text text text text text text text text text. Text text text text text text text text text text text text text text text, text text text text text text text, text text text text text text text text text text text text text text. Text text text text text text text text text text text text text text text, text text text text.
+
+    Text text text, text text text text text text text text text text text text text text. Text text text text text text text text text text text text text text text, text text text text text text text, text text text text text text text text text text text text text text. Text text text text text text text text text text text text text text text, text text text text text text text, text text text text text text text text text text text text text text.
+
+    Text text text text text text text text text text text text text text, text text text text text text text, text text text text text text text text text text text text text text. Text text text text text text text text text text text text text text text, text text text text text. Second paragraph text text text text text text text text text text text text text text, text text text text text text text, text text text text text text text text text text text text text text. Text text text text text text text text text text text text text text text, text text text text text.
   ],
-  keywordsEN: ("BUPT", "undergraduate", "thesis", "template", "example"),
+  keywordsEN: ("key word 1", "key word 2", "key word 3"),
 )
 
-// 正文
-= 基础模块
+= 标题
 
-我认为 Typst 介于 LaTeX 和 Markdown 之间。在你开始使用这个模板之前，你可以对 LaTeX 不那么熟悉，但确保你对 Markdown 有一定了解，并且我建议学习一下如何使用 Typst 。
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-== 段落示例
+== 标题
 
-二级标题和三级标题的段前和段后都增加了 0.5 行间距。如果二级标题和三级标题之间没有内容，两者的间距会直接叠加，而不是像 Word 那样自动设置。
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字。
 
-=== 三级标题
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字#footnote[脚注文本脚注文本脚注文本脚注文本]。
 
-=== 另一个三级标题
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字。
 
-我是标题下的第一个段落。我前面没有缩进。
+=== 标题
 
-我上面的段落没有 2 个全角空格的缩进，但是我有。我也不知道为什么。
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-=== 最后一个三级标题
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-#h(2em)
-我也是标题下的第一个段落，但是我前面有缩进，因为我的上一行有一个函数。
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-== 图示例
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字 @wang2001 正文文字。
 
-这是一幅图。
+#pagebreak()
+= 标题
 
-#Figure(
-  "images/Apple-Shenzhen.jpg",
-  [Apple 深圳万象城零售店],
-  80%
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+== 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字。
+
+正文文字正文文字正文文字正文文字正文文字。如@fig2-1 所示，正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字 @feng2022。
+
+#figure(
+  image("images/figure-2-1.png", width: 78%),
+  caption: [图名]
+)<fig2-1>
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字。
+
+=== 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字。如图 2-2(a) 所示，正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字。如图 2-2(b) 所示，正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+#figure(
+  [
+    #grid(
+      columns: (1fr, 1fr),
+      column-gutter: 1.2em,
+      image("images/figure-2-2-a.png", width: 100%),
+      image("images/figure-2-2-b.png", width: 100%),
+    )
+    #grid(
+      columns: (1fr, 1fr),
+      column-gutter: 1.2em,
+      text(font: FontKai, size: FONTSIZE.XiaoWu, [(a) 分图名 1]),
+      text(font: FontKai, size: FONTSIZE.XiaoWu, [(b) 分图名 2]),
+    )
+  ],
+  caption: [图名],
 )
 
-== 表格示例
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字。
 
-#Table(
-  "北京邮电大学历年录取分数线",
-  (auto, auto, auto, auto, auto),
-  horizon,
-  (
-    [*年份*], [*录取批次*], [*招生类型*], [*最低分/最低位次*], [*省控线*],
-    [2018], [本科一批], [普通类], [649/2469], [532],
-    [2017], [本科一批], [普通类], [635/2548], [537],
-    [2016], [本科一批], [宏福校区], [621/--], [548],
-    [2015], [本科一批], [普通类], [646/2499], [548],
-    [2014], [本科一批], [普通类], [--/--], [548],
+=== 标题
+
+如表 2-1 所示，正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    inset: (x: 3em, y: 5pt),
+    [量的名称], [单位名称], [单位符号],
+    [长度], [米], [m],
+    [质量], [千克(公斤)], [kg],
+    [时间], [秒], [s],
+    table.hline()
+  ),
+  caption: "国际单位制的基本单位",
+)<tab2-1>
+#tablenote[如有需要可对表格进行注释说明。]
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+$
+  ("d"x)/("d"t)=K(1-x)
+$
+
+其中，$K$ 正文文字正文。
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字。
+
+#figure(
+  caption: "表名",
+  table(
+    columns: (1fr, 1fr, 1fr, 1fr, 1fr),
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    table.hline() // 需要手动补一根线
   )
 )
 
-这是一张表。注意到了吗？这里并没有自动段首空格，因为我们还在上一段里。要想在后面开启新的一段，需要自己手动输入换行符“\\”。后面没有空格的原理是一样的。
+#figure(
+  caption: "表名",
+  supplement: [续表],
+  table(
+    columns: (1fr, 1fr, 1fr, 1fr, 1fr),
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    table.hline()
+  )
+)
 
-== 公式示例
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文 @duan2022 文字。
 
-下方是一个简单的求圆的面积的公式：
+#pagebreak()
 
-$ S = pi r^2 $
+= 标题
 
-语法跟 Markdown 很像，比较容易上手。
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-== 引用示例
+== 标题
 
-这是一个参考文献 @cn_ref 的引用 @webster_social_media 。
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-== 代码示例
+=== 标题
 
-这是一段用示例代码。
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-```cpp
-void setFib(void)
-{
-  fib(1 | 2 | 3 | 5 | 8 | 13 | 21 | 34 | 55 | 89, 10);
-}
-```
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
 
-Typst 还支持书写行内的代码，就像 Markdown 一样，比如 `return n * f(n - 1)` 。
+#pagebreak()
 
-// 附页
+= 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+== 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+=== 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+#pagebreak()
+
+= 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+== 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+=== 标题
+
+正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
+正文文字正文文字正文文字正文文字正文文字 @liu2025，正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
+
 #show: Appendix.with(
-  bibliographyFile: "reference.yml"
+  bibliographyFile: "reference.bib",
 )
 
 #pagebreak()
-#primary_heading([= 致#h(2em)谢])
+#primary_heading([= 致谢])
+#v(0.8em)
 
-谢谢你北邮，因为有你，温暖了四季。
+文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文文本文本文本。
+
+文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文文本文本文本。
 
 #pagebreak()
-#primary_heading([= 附#h(2em)录])
+#primary_heading([= 附录])
+#v(0.8em)
 
 #set heading(outlined: false)
+#show heading.where(level: 2): it => [
+  #set par(first-line-indent: 0em)
+  #set text(font: FontSong, weight: "regular", size: FONTSIZE.XiaoSi)
+  #it.body
+]
 
 == 附录 1
 
-这是一个附录内容，学校规定附录的二级标题得是“附录”二字后接阿拉伯数字。
+文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文文本文本文本。
 
-但是 Typst 的中文与英文和数字之间的空格并没有像 LaTeX 那样自动空出，所以就需要自己手打了。
+#v(1em)
+== 附录 2
 
-#set page(footer: none)
-
-#pagebreak()
-#primary_heading([= 外#h(1em)文#h(1em)资#h(1em)料])
-
-#pagebreak()
-#primary_heading([= 外#h(1em)文#h(1em)译#h(1em)文])
-
+论文的附录依序编排为附录 1，附录 2……。附录中的图表公式另编排序号，与正文分开。
