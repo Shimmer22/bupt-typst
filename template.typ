@@ -476,6 +476,30 @@
   )
 }
 
+// 仅用于“参考文献”标题：单独减小上方留白
+#let bibliography_heading(
+  title,
+) = {
+  grid(
+    columns: 1fr,
+    row-gutter: 0.2em,
+    rows: (0.3em, 1em, 1em),
+    [], [#title], []
+  )
+}
+
+// 仅用于“致谢/附录”标题：减小上方留白，保持下方留白不变
+#let backmatter_heading(
+  title,
+) = {
+  grid(
+    columns: 1fr,
+    row-gutter: 0.2em,
+    rows: (0.3em, 1em, 1em),
+    [], [#title], []
+  )
+}
+
 // 附录部分
 #let Appendix(
   bibliographyFile: none,
@@ -498,7 +522,7 @@
   // 参考文献
   if bibliographyFile != none {
     pagebreak()
-    primary_heading([= 参考文献])
+    bibliography_heading([= 参考文献])
 
     set text(
       font: FontSong,

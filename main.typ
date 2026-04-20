@@ -94,8 +94,8 @@
 
 #figure(
   table(
-    columns: (auto, auto, auto),
-    inset: (x: 3em, y: 5pt),
+    columns: (10em, 10em, 10em),
+    // inset: (x: 3em, y: 5pt),
     [量的名称], [单位名称], [单位符号],
     [长度], [米], [m],
     [质量], [千克(公斤)], [kg],
@@ -132,6 +132,8 @@ $
   supplement: [续表],
   table(
     columns: (1fr, 1fr, 1fr, 1fr, 1fr),
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
+    [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
     [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
     [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
     [XXXX], [XXXX], [XXXX], [XXXX], [XXXX],
@@ -199,7 +201,7 @@ $
 )
 
 #pagebreak()
-#primary_heading([= 致谢])
+#backmatter_heading([= 致谢])
 #v(0.8em)
 
 文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文文本文本文本。
@@ -207,7 +209,7 @@ $
 文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文文本文本文本。
 
 #pagebreak()
-#primary_heading([= 附录])
+#backmatter_heading([= 附录])
 #v(0.8em)
 
 #set heading(outlined: false)
