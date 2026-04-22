@@ -366,7 +366,7 @@
       ]
     ],
     footer: context [
-      #pad(top:-13pt)[
+      #pad(top: -13pt)[
         #align(center)[
           // 页码数字使用宋体
           #text(font: FontSongCN, size: FONTSIZE.XiaoWu)[
@@ -454,14 +454,19 @@
       block[
         #it
         #v(3pt, weak: true) // 表注和表的距离
-        #let width = measure(it).width
-        // 固定宽度盒子，避免撑大
-        #box(width: width)[
-          #align(left)[
-            #set par(first-line-indent: 0em) // 移除表注的首行缩进
-            #text(size: 0.9em)[注：#note]
+        #layout(size => {
+          // 获取父元素宽度，否则当传入相对长度时measure按照无限大计算
+          let m = measure(width: size.width, it)
+          // 固定宽度盒子，避免撑大
+          box(width: m.width)[
+            #align(left)[
+              #set par(first-line-indent: 0em) // 移除表注的首行缩进
+              #text(size: 0.9em)[注：#note]
+            ]
           ]
-        ]
+        })
+        #let width = measure(it).width
+
       ]
     } else {
       it
