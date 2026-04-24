@@ -1,105 +1,14 @@
 #import "@preview/itemize:0.2.0" as el
 #import "@preview/cuti:0.4.0": fakebold, show-cn-fakebold
-
-#let chineseNumMap(num) = {
-  let chineseNum = (
-    "一",
-    "二",
-    "三",
-    "四",
-    "五",
-    "六",
-    "七",
-    "八",
-    "九",
-    "十",
-    "十一",
-    "十二",
-    "十三",
-    "十四",
-    "十五",
-    "十六",
-    "十七",
-    "十八",
-    "十九",
-    "二十",
-    "二十一",
-    "二十二",
-    "二十三",
-    "二十四",
-    "二十五",
-    "二十六",
-    "二十七",
-    "二十八",
-    "二十九",
-    "三十",
-    "三十一",
-    "三十二",
-    "三十三",
-    "三十四",
-    "三十五",
-    "三十六",
-    "三十七",
-    "三十八",
-    "三十九",
-    "四十",
-  )
-  chineseNum.at(num - 1)
-}
-
-#let romanNumMap(num) = {
-  let romanNum = (
-    "I",
-    "II",
-    "III",
-    "IV",
-    "V",
-    "VI",
-    "VII",
-    "VIII",
-    "IX",
-    "X",
-    "XI",
-    "XII",
-    "XIII",
-    "XIV",
-    "XV",
-    "XVI",
-    "XVII",
-    "XVIII",
-    "XIX",
-    "XX",
-    "XXI",
-    "XXII",
-    "XXIII",
-    "XXIV",
-    "XXV",
-    "XXVI",
-    "XXVII",
-    "XXVIII",
-    "XXIX",
-    "XXX",
-    "XXXI",
-    "XXXII",
-    "XXXIII",
-    "XXXIV",
-    "XXXV",
-    "XXXVI",
-    "XXXVII",
-    "XXXVIII",
-    "XXXIX",
-    "XL",
-  )
-  romanNum.at(num - 1)
-}
+#import "@preview/numbly:0.1.0": numbly
 
 #let FONTSIZE = (
-  SanHao: 16pt,
-  XiaoSan: 15pt,
-  SiHao: 14pt,
-  XiaoSi: 12pt,
-  WuHao: 10.5pt,
-  XiaoWu: 9pt,
+  三号: 16pt,
+  小三: 15pt,
+  四号: 14pt,
+  小四: 12pt,
+  五号: 10.5pt,
+  小五: 9pt,
 )
 
 // #let FONTSET = (
@@ -141,7 +50,7 @@
 ) = {
   // 页面配置
   set page(paper: "a4", margin: 2.5cm)
-  set text(font: FontSong, weight: "regular", size: FONTSIZE.XiaoSi)
+  set text(font: FontSong, weight: "regular", size: FONTSIZE.小四)
 
   show: el.default-enum-list // 有序列表与内容基线对齐
   show: show-cn-fakebold // 中文伪粗体
@@ -170,9 +79,9 @@
   align(center)[
     #set text(font: FontHeiCN, weight: "bold")
     #v(0.6cm)
-    #text(size: FONTSIZE.SanHao, titleZH)
+    #text(size: FONTSIZE.三号, titleZH)
     #v(1.4cm)
-    #text(size: FONTSIZE.XiaoSan, "摘要")
+    #text(size: FONTSIZE.小三, "摘要")
     #v(0.45cm)
   ]
 
@@ -188,18 +97,18 @@
   text(
     font: FontHeiCN,
     weight: "bold",
-    size: FONTSIZE.XiaoSi,
+    size: FONTSIZE.小四,
     h(2em) + "关键词" + h(0.5em),
   )
-  text(size: FONTSIZE.XiaoSi, keywordsZH.join(h(1em)))
+  text(size: FONTSIZE.小四, keywordsZH.join(h(1em)))
   pagebreak()
 
   // 英文摘要
   align(center)[
     #v(0.2cm)
-    #text(weight: "bold", size: FONTSIZE.SanHao, titleEN)
+    #text(weight: "bold", size: FONTSIZE.三号, titleEN)
     #v(1.5cm)
-    #text(weight: "bold", size: FONTSIZE.XiaoSan, "ABSTRACT")
+    #text(weight: "bold", size: FONTSIZE.小三, "ABSTRACT")
     #v(0.8cm)
   ]
 
@@ -213,19 +122,21 @@
 
 
   [\ ]
-  text(weight: "bold", size: FONTSIZE.XiaoSi, h(2em) + "KEY WORDS")
-  text(size: FONTSIZE.XiaoSi, for value in keywordsEN {
+  text(weight: "bold", size: FONTSIZE.小四, h(2em) + "KEY WORDS")
+  text(size: FONTSIZE.小四, for value in keywordsEN {
     h(1em) + value
   })
-  pagebreak()
+
+  pagebreak(to: "odd", weak: true)
 
   // 目录
   set page(
+    numbering: "I",
     footer: context {
       [
         #align(center)[
-          #text(font: FontEnglish, size: FONTSIZE.XiaoWu)[
-            #romanNumMap(counter(page).at(here()).at(0))
+          #text(font: FontEnglish, size: FONTSIZE.小五)[
+            #counter(page).display()
           ]
         ]
       ]
@@ -233,118 +144,164 @@
   )
   counter(page).update(1)
 
-  show outline: it => context {
+  set heading(numbering: numbly(
+    "第{1:一}章", // use {level:format} to specify the format
+    "{1}.{2}", // if format is not specified, arabic numbers will be used
+    "{1}.{2}.{3}", // here, we only want the 3rd level
+  ))
+
+  show heading.where(level: 1): set align(center)
+
+  align(center)[
+    #text(font: FontHeiCN, weight: "bold", /*tracking: 2em, */ size: FONTSIZE.三号, [目录\ \ ]) // 2026模板移除了标题的2em空格
+  ]
+  show outline.entry: it => {
     set par(first-line-indent: 0em, leading: 0.85em)
-
-    align(center)[
-      #text(font: FontHeiCN, weight: "bold", /*tracking: 2em, */ size: FONTSIZE.SanHao, [目录\ \ ]) // 2026模板移除了标题的2em空格
-    ]
-
-    let chapterCounter = 1
-    let sectionCounter = 1
-    let subsectionCounter = 1
-    v(1cm)
-    let headingList = query(heading)
-    for i in headingList {
-      link(i.location(), {
-        if i.outlined == false {
-          break
-        }
-
-        if i.level == 1 {
-          set text(font: FontHei, size: FONTSIZE.XiaoSi /*, weight: "bold"*/) // 取消页码和点分隔符的加粗
-
-          if i.body != [参考文献] and i.body != [致谢] and i.body != [附录] {
-            // 2026模板移除了标题的2em空格
-            [第#chineseNumMap(chapterCounter)章#h(1em)]
-          }
-
-          if i.body == [致谢] {
-            [致谢 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-          } else if i.body == [附录] {
-            [附录 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-          } else {
-            [#i.body #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-          }
-
-          chapterCounter = chapterCounter + 1
-          sectionCounter = 1
-        } else if i.level == 2 {
-          // 手动增大缩进对齐模板
-          [#h(1.5em)#calc.abs(chapterCounter - 1)\.#sectionCounter#h(1em)#i.body #box(width: 1fr, repeat[.]) #(
-              counter(page).at(i.location()).at(0)
-            )\ ]
-
-          sectionCounter += 1
-          subsectionCounter = 1
-        } else if i.level == 3 {
-          // 手动增大缩进对齐模板
-          [#h(2.4em)#calc.abs(chapterCounter - 1)\.#calc.abs(sectionCounter - 1)\.#subsectionCounter#h(1em)#i.body #box(
-              width: 1fr,
-              repeat[.],
-            ) #counter(page).at(i.location()).at(0)\ ]
-
-          subsectionCounter += 1
-        }
-      })
+    let indent = (it.level - 1) * 2em
+    let elem = it.element
+    let loc = elem.location()
+    let body = elem.body
+    if not elem.outlined {
+      return
     }
+
+    link(loc, {
+      if it.level == 1 {
+        text(
+          font: FontHei,
+          size: FONTSIZE.小四,
+          if elem.numbering != none {
+            numbering(elem.numbering, ..counter(heading).at(loc))
+            h(0.5em, weak: true)
+          }
+            + body,
+        )
+      } else {
+        h(indent)
+        counter(heading).at(loc).map(s => str(s)).join(".")
+        body
+      }
+
+      box(width: 1fr, repeat[.])
+
+      [#counter(page).at(loc).at(0) \ ]
+    })
   }
+
+  // show outline: it => context {
+  //   set par(first-line-indent: 0em, leading: 0.85em)
+
+  //   align(center)[
+  //     #text(font: FontHeiCN, weight: "bold", /*tracking: 2em, */ size: FONTSIZE.三号, [目录\ \ ]) // 2026模板移除了标题的2em空格
+  //   ]
+
+  //   let chapterCounter = 1
+  //   let sectionCounter = 1
+  //   let subsectionCounter = 1
+  //   v(1cm)
+  //   let headingList = query(heading)
+  //   for i in headingList {
+  //     link(i.location(), {
+  //       if i.outlined == false {
+  //         break
+  //       }
+
+  //       if i.level == 1 {
+  //         set text(font: FontHei, size: FONTSIZE.小四 /*, weight: "bold"*/) // 取消页码和点分隔符的加粗
+
+  //         if i.body != [参考文献] and i.body != [致谢] and i.body != [附录] {
+  //           // 2026模板移除了标题的2em空格
+  //           [第#chineseNumMap(chapterCounter)章#h(1em)]
+  //         }
+
+  //         if i.body == [致谢] {
+  //           [致谢 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
+  //         } else if i.body == [附录] {
+  //           [附录 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
+  //         } else {
+  //           [#i.body #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
+  //         }
+
+  //         chapterCounter = chapterCounter + 1
+  //         sectionCounter = 1
+  //       } else if i.level == 2 {
+  //         // 手动增大缩进对齐模板
+  //         [#h(1.5em)#calc.abs(chapterCounter - 1)\.#sectionCounter#h(1em)#i.body #box(width: 1fr, repeat[.]) #(
+  //             counter(page).at(i.location()).at(0)
+  //           )\ ]
+
+  //         sectionCounter += 1
+  //         subsectionCounter = 1
+  //       } else if i.level == 3 {
+  //         // 手动增大缩进对齐模板
+  //         [#h(2.4em)#calc.abs(chapterCounter - 1)\.#calc.abs(sectionCounter - 1)\.#subsectionCounter#h(1em)#i.body #box(
+  //             width: 1fr,
+  //             repeat[.],
+  //           ) #counter(page).at(i.location()).at(0)\ ]
+
+  //         subsectionCounter += 1
+  //       }
+  //     })
+  //   }
+  // }
 
   outline(title: none, depth: 3, indent: auto)
 
+  set page(numbering: "1")
+
   // 章节标题配置
-  set heading(numbering: "1.1")
-  show heading: it => context {
-    context {
-      let levels = counter(heading).at(here())
+  // set heading(numbering: "1.1")
+  // show heading: it => context {
+  //   context {
+  //     let levels = counter(heading).at(here())
 
-      // 重置段首空格
-      set par(first-line-indent: 0em)
-      set text(font: FontHeiCN, weight: "bold")
+  //     // 重置段首空格
+  //     set par(first-line-indent: 0em)
+  //     set text(font: FontHeiCN, weight: "bold")
 
-      if it.level == 1 {
-        // 重置计数器
-        tableCounter.update(1)
-        figureCounter.update(1)
-        equationCounter.update(1)
+  //     if it.level == 1 {
+  //       // 重置计数器
+  //       tableCounter.update(1)
+  //       figureCounter.update(1)
+  //       equationCounter.update(1)
 
-        align(center)[
-          #grid(
-            rows: 0.95em,
-            row-gutter: 0em,
-            columns: 1fr,
-            [],
-            text(size: FONTSIZE.SanHao, [第#chineseNumMap(levels.at(0))章#h(0.5em)#it.body]),
-            []
-          )
-        ]
-      } else if it.level == 2 {
-        grid(
-          rows: (0em, 1em, 0.5em), // (0.5em, 1em, 0.5em),
-          columns: 1fr,
-          [],
-          fakebold[ // 黑体序号使用伪粗体
-            #numbering("1.1", ..levels)
-            #text(size: FONTSIZE.SiHao, it.body)
-          ],
-          []
-        )
-      } else {
-        grid(
-          rows: (0.15em, 1em, 0.85em),
-          columns: 1fr,
-          [],
-          fakebold[ // 黑体序号使用伪粗体
-            #h(2em) #numbering("1.1", ..levels)
-            #text(size: FONTSIZE.XiaoSi, it.body)
-          ],
-          []
-        )
-      }
-    }
-    text()[#v(-0.6em, weak: true)]
-    text()[#h(0em)]
-  }
+  //       align(center)[
+  //         #grid(
+  //           rows: 0.95em,
+  //           row-gutter: 0em,
+  //           columns: 1fr,
+  //           [],
+  //           text(size: FONTSIZE.三号, [第#chineseNumMap(levels.at(0))章#h(0.5em)#it.body]),
+  //           []
+  //         )
+  //       ]
+  //     } else if it.level == 2 {
+  //       grid(
+  //         rows: (0em, 1em, 0.5em), // (0.5em, 1em, 0.5em),
+  //         columns: 1fr,
+  //         [],
+  //         fakebold[ // 黑体序号使用伪粗体
+  //           #numbering("1.1", ..levels)
+  //           #text(size: FONTSIZE.四号, it.body)
+  //         ],
+  //         []
+  //       )
+  //     } else {
+  //       grid(
+  //         rows: (0.15em, 1em, 0.85em),
+  //         columns: 1fr,
+  //         [],
+  //         fakebold[ // 黑体序号使用伪粗体
+  //           #h(2em) #numbering("1.1", ..levels)
+  //           #text(size: FONTSIZE.小四, it.body)
+  //         ],
+  //         []
+  //       )
+  //     }
+  //   }
+  //   text()[#v(-0.6em, weak: true)]
+  //   text()[#h(0em)]
+  // }
 
   // 引用
   show cite: set text(font: FontEnglish)
@@ -360,7 +317,7 @@
       #counter(footnote).update(0) // 重设脚注计数器，否则不同页脚注会累积
       #align(center)[
         #pad(bottom: -6pt)[
-          #pad(bottom: -6pt, text(font: FontSong, size: FONTSIZE.XiaoWu, "北京邮电大学本科毕业设计（论文）"))
+          #pad(bottom: -6pt, text(font: FontSong, size: FONTSIZE.小五, "北京邮电大学本科毕业设计（论文）"))
           #line(length: 100%, stroke: 0.5pt)
         ]
       ]
@@ -369,7 +326,7 @@
       #pad(top: -13pt)[
         #align(center)[
           // 页码数字使用宋体
-          #text(font: FontSongCN, size: FONTSIZE.XiaoWu)[
+          #text(font: FontSongCN, size: FONTSIZE.小五)[
             #counter(page).display()
           ]
         ]
@@ -391,7 +348,7 @@
   }
 
   // 图表标题
-  show figure.caption: set text(font: FontKai, size: FONTSIZE.WuHao)
+  show figure.caption: set text(font: FontKai, size: FONTSIZE.五号)
 
   // 图
   show figure.where(kind: image): set figure(
@@ -489,16 +446,16 @@
 }
 
 // 仅用于“参考文献”标题：单独减小上方留白
-#let bibliography_heading(
-  title,
-) = {
-  grid(
-    columns: 1fr,
-    row-gutter: 0.2em,
-    rows: (0.3em, 1em, 1em),
-    [], [#title], []
-  )
-}
+// #let bibliography_heading(
+//   title,
+// ) = {
+//   grid(
+//     columns: 1fr,
+//     row-gutter: 0.2em,
+//     rows: (0.3em, 1em, 1em),
+//     [], [#title], []
+//   )
+// }
 
 // 仅用于“致谢/附录”标题：减小上方留白，保持下方留白不变
 #let backmatter_heading(
@@ -513,7 +470,7 @@
 }
 
 #let render_backmatter_title(title) = align(center)[
-  #set text(font: FontHeiCN, size: FONTSIZE.SanHao)
+  #set text(font: FontHeiCN, size: FONTSIZE.三号)
   #backmatter_heading([#title])
 ]
 
@@ -522,32 +479,43 @@
   bibliographyFile: none,
   body,
 ) = {
-  show heading: it => context {
-    set par(first-line-indent: 0em)
-
-    if it.level == 1 {
-      render_backmatter_title(it.body)
-    } else if it.level == 2 {
-      text(
-        font: FontSong,
-        weight: "regular",
-        size: FONTSIZE.XiaoSi,
-        it.body,
-      )
-    }
+  set heading(numbering: none)
+  show heading.where(level: i => i > 2): set text(
+    font: FontSong,
+    weight: "regular",
+    size: FONTSIZE.小四,
+  )
+  show heading.where(level: 1): it => {
+    pagebreak(to: "odd", weak: true)
+    it
   }
+
+  // show heading: it => context {
+  //   // set par(first-line-indent: 0em)
+
+  //   if it.level == 1 {
+  //     render_backmatter_title(it.body)
+  //   } else if it.level == 2 {
+  //     text(
+  //       font: FontSong,
+  //       weight: "regular",
+  //       size: FONTSIZE.小四,
+  //       it.body,
+  //     )
+  //   }
+  // }
 
   // 参考文献
   if bibliographyFile != none {
     pagebreak()
     align(center)[
-      #set text(font: FontHeiCN, size: FONTSIZE.SanHao)
-      #bibliography_heading([参考文献])
+      #set text(font: FontHeiCN, size: FONTSIZE.四号)
+      = 参考文献
     ]
 
     set text(
       font: FontSong,
-      size: FONTSIZE.WuHao,
+      size: FONTSIZE.五号,
       lang: "zh",
     )
     set par(first-line-indent: 0em)

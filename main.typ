@@ -117,8 +117,8 @@
     #grid(
       columns: (1fr, 1fr),
       column-gutter: 1.2em,
-      text(font: FontKai, size: FONTSIZE.XiaoWu, [(a) 分图名1]),
-      text(font: FontKai, size: FONTSIZE.XiaoWu, [(b) 分图名2]),
+      text(font: FontKai, size: FONTSIZE.小五, [(a) 分图名1]),
+      text(font: FontKai, size: FONTSIZE.小五, [(b) 分图名2]),
     )
   ],
   caption: [两类代表性的基于扩散模型的文生视频方法],
