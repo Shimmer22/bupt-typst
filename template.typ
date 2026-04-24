@@ -38,6 +38,9 @@
 #let tableCounter = counter("Table")
 #let figureCounter = counter("Figure")
 #let equationCounter = counter("Equation")
+#let appendixTableCounter = counter("AppendixTable")
+#let appendixFigureCounter = counter("AppendixFigure")
+#let appendixEquationCounter = counter("AppendixEquation")
 
 #let BUPTBachelorThesis(
   titleZH: "",
@@ -60,7 +63,7 @@
     numbering: it => context [
       // 改用numbering实现，可在正文 @label
       #let chapterLevel = counter(heading).at(here()).at(0)
-      #set text(font: FontSong)
+      #set text(font: FontEnglish, size: FONTSIZE.XiaoSi)
       #h(0em, weak: true)
       (#chapterLevel\-#equationCounter.display())
       #h(0em, weak: true)
@@ -412,4 +415,3 @@
   }
   body
 }
-

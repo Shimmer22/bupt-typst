@@ -212,35 +212,45 @@ $
 模型训练阶段基于 LLaMA @touvron2023llama 框架，LLaMA 支持多种主流大语言模型的参数高效微调，具备良好的模块化结构与兼容性。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。训练流程如算法 3-1 所示。
 
 #set par(first-line-indent: 0em)
-#table(
-  columns: (1fr),
-  align: left,
-  [算法 3-1  模型训练流程],
-  [
-    输入：$S_"raw"$，原始物品文本语料 \
-    $n^*$，初始化簇中心数 \
-    $d$，码字嵌入维度 \
-    输出：$C = {C_1, C_2, C_3}$，三层语义码本 \
-    $S_"sid"$，物品语义标签集
-  ],
-  [
-    // 语义嵌入编码（使用 Sentence-T5 预训练编码器） \
-    $op("Encoder")(S_"raw") = S_"emb" in bold(R)^(n times d)$ \
-    // 初始化 \
-    $pi = 1 / K$，$mu = op("UniformSample")(S_"emb", n^*)$，$Sigma = I$ \
-    $"res"_1 = S_"emb"$，$C = emptyset$，$S_"sid" = emptyset$ \
-    // 物品语义标签构建 \
-    $H = {}$，$c = 0$ \
-    $forall i in n$ \
-    $op("sid")(i) = [z_(i 1), z_(i 2), z_(i 3)]$ \
-    查询 $H$ 中 $op("sid")(i)$ 重复次数 \
-    若未出现：$c = 0$；若已出现：$c = "已出现次数"$ \
-    $op("sid")(i).op("append")(z_l)$ \
-    $H[op("sid")(i)] = c + 1$ \
-    end \
-    $S_"sid" = {op("sid")(1), op("sid")(2), dots, op("sid")(n)}$
-  ],
-)
+#v(0.5em)
+#line(length: 100%, stroke: 0.8pt + black)
+#block(width: 100%)[
+  #set text(font: FontKai, size: FONTSIZE.WuHao)
+  算法 3-1  模型训练流程
+]
+#line(length: 100%, stroke: 0.8pt + black)
+#block(width: 100%)[
+  #set text(font: ("Cambria Math", "DengXian"), size: FONTSIZE.WuHao)
+  #grid(
+    columns: (auto, 1fr),
+    column-gutter: 0.6em,
+    row-gutter: 0.45em,
+    align: (left, left),
+    [输入：], [$S_"raw"$，原始物品文本语料],
+    [], [$n^*$，初始化簇中心数],
+    [], [$d$，码字嵌入维度],
+    [输出：], [$C = {C_1, C_2, C_3}$，三层语义码本],
+    [], [$S_"sid"$，物品语义标签集],
+  )
+  #v(0.2em)
+  #text("// 语义嵌入编码（使用 Sentence-T5 预训练编码器）") \
+  $op("Encoder")(S_"raw") = S_"emb" in bold(R)^(n times d)$ \
+  #text("// 初始化") \
+  $pi = 1 / K$，$mu = op("UniformSample")(S_"emb", n^*)$，$Sigma = I$ \
+  $"res"_1 = S_"emb"$，$C = emptyset$，$S_"sid" = emptyset$ \
+  #text("// 物品语义标签构建") \
+  $H = {}$，$c = 0$ \
+  for $i$ in $n$： \
+  #h(2em)$op("sid")(i) = [z_(i 1), z_(i 2), z_(i 3)]$ \
+  #h(2em)查询 $H$ 中 $op("sid")(i)$ 重复次数 \
+  #h(4em)若未出现：$c = 0$；若已出现：$c =$ 已出现次数 \
+  #h(4em)$op("sid")(i).op("append")(z_l)$ \
+  #h(4em)$H[op("sid")(i)] = c + 1$ \
+  end \
+  $S_"sid" = {op("sid")(1), op("sid")(2), dots, op("sid")(n)}$
+]
+#line(length: 100%, stroke: 0.8pt + black)
+#v(0.5em)
 #set par(first-line-indent: (all: true, amount: 2em))
 
 正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字正文文字。
