@@ -4,5 +4,6 @@
 *.otf
 *.exe
 *.pdf
+*.ttc
 .DS_Store
 ref/

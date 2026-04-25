@@ -249,7 +249,7 @@
       #counter(footnote).update(0) // 重设脚注计数器，否则不同页脚注会累积
       #align(center)[
         #pad(bottom: -6pt)[
-          #pad(bottom: -6pt, text(font: FontSong, size: FONTSIZE.小五, "北京邮电大学本科毕业设计（论文）"))
+          #pad(bottom: -11pt, text(font: FontSong, size: FONTSIZE.小五, "北京邮电大学本科毕业设计（论文）"))
           #line(length: 100%, stroke: 0.5pt)
         ]
       ]
@@ -376,10 +376,7 @@
   // 参考文献
   if bibliographyFile != none {
     pagebreak()
-    align(center)[
-      #set text(font: FontHeiCN, size: FONTSIZE.四号)
-      = 参考文献
-    ]
+    heading(level: 1)[参考文献]
 
     set text(
       font: FontSong,
