@@ -87,8 +87,8 @@
 
   set par(
     first-line-indent: (all: true, amount: 2em), // 首行缩进
-    leading: 0.92em, // 段内行间距为1.25倍，不等于 1.25em
-    spacing: 0.92em, // 段间距同样为1.25倍，不等于 1.25em
+    leading: 1.2em, // 段内行间距为1.25倍，不等于 1.25em
+    spacing: 1.2em, // 段间距同样为1.25倍，不等于 1.25em
     justify: true, // 两端对齐
   )
   abstractZH
@@ -138,6 +138,9 @@
   show heading: it => {
     if it.level == 1 {
       pagebreak(to: "odd", weak: true) // 大标题奇数页
+      tableCounter.update(1)
+      figureCounter.update(1)
+      equationCounter.update(1)
     }
     if it.level <= 3 {
       let idx = it.level - 1
@@ -225,120 +228,9 @@
     })
   }
 
-  // show outline: it => context {
-  //   set par(first-line-indent: 0em, leading: 0.85em)
-
-  //   align(center)[
-  //     #text(font: FontHeiCN, weight: "bold", /*tracking: 2em, */ size: FONTSIZE.三号, [目录\ \ ]) // 2026模板移除了标题的2em空格
-  //   ]
-
-  //   let chapterCounter = 1
-  //   let sectionCounter = 1
-  //   let subsectionCounter = 1
-  //   v(1cm)
-  //   let headingList = query(heading)
-  //   for i in headingList {
-  //     link(i.location(), {
-  //       if i.outlined == false {
-  //         break
-  //       }
-
-  //       if i.level == 1 {
-  //         set text(font: FontHei, size: FONTSIZE.小四 /*, weight: "bold"*/) // 取消页码和点分隔符的加粗
-
-  //         if i.body != [参考文献] and i.body != [致谢] and i.body != [附录] {
-  //           // 2026模板移除了标题的2em空格
-  //           [第#chineseNumMap(chapterCounter)章#h(1em)]
-  //         }
-
-  //         if i.body == [致谢] {
-  //           [致谢 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-  //         } else if i.body == [附录] {
-  //           [附录 #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-  //         } else {
-  //           [#i.body #box(width: 1fr, repeat[.]) #counter(page).at(i.location()).at(0)\ ]
-  //         }
-
-  //         chapterCounter = chapterCounter + 1
-  //         sectionCounter = 1
-  //       } else if i.level == 2 {
-  //         // 手动增大缩进对齐模板
-  //         [#h(1.5em)#calc.abs(chapterCounter - 1)\.#sectionCounter#h(1em)#i.body #box(width: 1fr, repeat[.]) #(
-  //             counter(page).at(i.location()).at(0)
-  //           )\ ]
-
-  //         sectionCounter += 1
-  //         subsectionCounter = 1
-  //       } else if i.level == 3 {
-  //         // 手动增大缩进对齐模板
-  //         [#h(2.4em)#calc.abs(chapterCounter - 1)\.#calc.abs(sectionCounter - 1)\.#subsectionCounter#h(1em)#i.body #box(
-  //             width: 1fr,
-  //             repeat[.],
-  //           ) #counter(page).at(i.location()).at(0)\ ]
-
-  //         subsectionCounter += 1
-  //       }
-  //     })
-  //   }
-  // }
-
   outline(title: none, depth: 3, indent: auto)
 
   set page(numbering: "1")
-
-  // 章节标题配置
-  // set heading(numbering: "1.1")
-  // show heading: it => context {
-  //   context {
-  //     let levels = counter(heading).at(here())
-
-  //     // 重置段首空格
-  //     set par(first-line-indent: 0em)
-  //     set text(font: FontHeiCN, weight: "bold")
-
-  //     if it.level == 1 {
-  //       // 重置计数器
-  //       tableCounter.update(1)
-  //       figureCounter.update(1)
-  //       equationCounter.update(1)
-
-  //       align(center)[
-  //         #grid(
-  //           rows: 0.95em,
-  //           row-gutter: 0em,
-  //           columns: 1fr,
-  //           [],
-  //           text(size: FONTSIZE.三号, [第#chineseNumMap(levels.at(0))章#h(0.5em)#it.body]),
-  //           []
-  //         )
-  //       ]
-  //     } else if it.level == 2 {
-  //       grid(
-  //         rows: (0em, 1em, 0.5em), // (0.5em, 1em, 0.5em),
-  //         columns: 1fr,
-  //         [],
-  //         fakebold[ // 黑体序号使用伪粗体
-  //           #numbering("1.1", ..levels)
-  //           #text(size: FONTSIZE.四号, it.body)
-  //         ],
-  //         []
-  //       )
-  //     } else {
-  //       grid(
-  //         rows: (0.15em, 1em, 0.85em),
-  //         columns: 1fr,
-  //         [],
-  //         fakebold[ // 黑体序号使用伪粗体
-  //           #h(2em) #numbering("1.1", ..levels)
-  //           #text(size: FONTSIZE.小四, it.body)
-  //         ],
-  //         []
-  //       )
-  //     }
-  //   }
-  //   text()[#v(-0.6em, weak: true)]
-  //   text()[#h(0em)]
-  // }
 
   // 引用
   show cite: set text(font: FontEnglish)
@@ -469,17 +361,6 @@
 
   // 正文
   body
-}
-
-#let primary_heading(
-  title,
-) = {
-  grid(
-    columns: 1fr,
-    row-gutter: 0.2em,
-    rows: (1em, 1em, 1em),
-    [], [#title], []
-  )
 }
 
 // 附录部分
