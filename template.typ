@@ -62,7 +62,7 @@
       #let chapterLevel = counter(heading).at(here()).at(0)
       #set text(font: FontSong)
       #h(0em, weak: true)
-      式（#chapterLevel\-#equationCounter.display()）
+      (#chapterLevel\-#equationCounter.display())
       #h(0em, weak: true)
       #equationCounter.step()
     ],
