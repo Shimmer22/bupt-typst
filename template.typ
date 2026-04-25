@@ -41,6 +41,7 @@
 #let appendixTableCounter = counter("AppendixTable")
 #let appendixFigureCounter = counter("AppendixFigure")
 #let appendixEquationCounter = counter("AppendixEquation")
+#let appendixChapterCounter = counter("AppendixChapter")
 
 #let BUPTBachelorThesis(
   titleZH: "",
@@ -63,7 +64,7 @@
     numbering: it => context [
       // 改用numbering实现，可在正文 @label
       #let chapterLevel = counter(heading).at(here()).at(0)
-      #set text(font: FontEnglish, size: FONTSIZE.XiaoSi)
+      #set text(font: FontEnglish, size: FONTSIZE.小四)
       #h(0em, weak: true)
       (#chapterLevel\-#equationCounter.display())
       #h(0em, weak: true)
@@ -373,10 +374,69 @@
 ) = {
   set heading(numbering: none)
 
+  set math.equation(
+    numbering: it => context [
+      #let appendixIndex = appendixChapterCounter.get().first()
+      #set text(font: FontEnglish, size: FONTSIZE.小四)
+      #h(0em, weak: true)
+      (附#appendixIndex\-#appendixEquationCounter.display())
+      #h(0em, weak: true)
+      #appendixEquationCounter.step()
+    ],
+    supplement: [],
+  )
+
+  show figure.where(kind: image): set figure(
+    supplement: [附图],
+    numbering: it => context {
+      let appendixIndex = appendixChapterCounter.get().first()
+      [#appendixIndex\-#appendixFigureCounter.display()]
+    },
+  )
+  show figure.where(kind: image): it => {
+    appendixFigureCounter.step()
+    it
+  }
+
+  show figure.where(kind: table): set figure(
+    supplement: [附表],
+    numbering: it => context {
+      let appendixIndex = appendixChapterCounter.get().first()
+      [#appendixIndex\-#appendixTableCounter.display()]
+    },
+  )
+  show figure.where(kind: table): it => {
+    appendixTableCounter.step()
+    it
+  }
+
+  show heading.where(level: 1): it => context {
+    if repr(it.body).contains("附录") {
+      appendixChapterCounter.step()
+      appendixTableCounter.update(0)
+      appendixFigureCounter.update(0)
+      appendixEquationCounter.update(0)
+    }
+    it
+  }
+
+  show heading.where(level: 2): it => context {
+    set par(first-line-indent: 0em)
+    appendixTableCounter.update(0)
+    appendixFigureCounter.update(0)
+    appendixEquationCounter.update(0)
+    text(
+      font: FontSong,
+      weight: "regular",
+      size: FONTSIZE.小四,
+      it.body,
+    )
+  }
+
   // 参考文献
   if bibliographyFile != none {
     pagebreak()
-    heading(level: 1)[参考文献]
+    heading(level: 1, numbering: none)[参考文献]
 
     set text(
       font: FontSong,

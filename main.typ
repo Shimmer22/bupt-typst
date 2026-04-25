@@ -215,12 +215,12 @@ $
 #v(0.5em)
 #line(length: 100%, stroke: 0.8pt + black)
 #block(width: 100%)[
-  #set text(font: FontKai, size: FONTSIZE.WuHao)
+  #set text(font: FontKai, size: FONTSIZE.五号)
   算法 3-1  模型训练流程
 ]
 #line(length: 100%, stroke: 0.8pt + black)
 #block(width: 100%)[
-  #set text(font: ("Cambria Math", "DengXian"), size: FONTSIZE.WuHao)
+  #set text(font: ("Cambria Math", "DengXian"), size: FONTSIZE.五号)
   #grid(
     columns: (auto, 1fr),
     column-gutter: 0.6em,
